@@ -453,9 +453,9 @@ class Function:
         # Get types of arguments for signature. Only use `type_of` if
         # necessary, because it incurs a significant performance hit.
         if not self._parametric:
-            sig_types = tuple([type(x) for x in args])
+            sig_types = tuple(type(x) for x in args)
         else:
-            sig_types = tuple([promised_type_of.resolve()(x) for x in args])
+            sig_types = tuple(promised_type_of.resolve()(x) for x in args)
 
         try:
             # Attempt to use cache. This will also be done in
