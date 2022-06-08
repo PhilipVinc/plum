@@ -1,3 +1,40 @@
+[project]
+name = "plum-dispatch"
+authors=[
+    {name = "Wessel Bruinsma", email = "wessel.p.bruinsma@gmail.com"},
+]
+urls = {repository = "https://github.com/wesselb/plum"}
+license = {text= "MIT"}
+description="Multiple dispatch in Python"
+readme = "README.md"
+keywords = ["Machine Learning", "Quantum", "Neural Networks", "Jax", "Monte Carlo"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Unix",
+]
+dynamic = ["version"]
+
+requires-python = ">=3.7"
+dependencies = [
+]
+
+[project.optional-dependencies]
+dev = [
+    "numpy",
+    "pytest>=6",
+    "pytest-cov>=2.10.1",
+    "coveralls",
+    "pre-commit>=2.7",
+    "black==22.3.0",
+    "IPython>=8.0.0",
+    "sphinx",
+    "sphinx-rtd-theme",
+]
+
 [build-system]
 requires = [
     "setuptools>=50",
@@ -9,3 +46,11 @@ requires = [
 
 [tool.setuptools_scm]
 write_to = "plum/_version.py"
+
+[tool.setuptools.packages.find]
+include = ["plum*"]  # package names should match these glob patterns (["*"] by default)
+
+
+
+
+
