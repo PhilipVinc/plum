@@ -1,10 +1,9 @@
-[project]
+[tool.poetry]
 name = "plum-dispatch"
-authors=[
-    {name = "Wessel Bruinsma", email = "wessel.p.bruinsma@gmail.com"},
-]
-urls = {repository = "https://github.com/wesselb/plum"}
-license = {text= "MIT"}
+homepage = "https://github.com/wesselb/plum"
+documentation = "https://github.com/wesselb/plum"
+authors=[ "Wessel Bruinsma <wessel.p.bruinsma@gmail.com>"]
+license = "MIT"
 description="Multiple dispatch in Python"
 readme = "README.md"
 keywords = ["Machine Learning", "Quantum", "Neural Networks", "Jax", "Monte Carlo"]
@@ -16,41 +15,25 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: Unix",
 ]
-dynamic = ["version"]
-
-requires-python = ">=3.7"
-dependencies = [
-]
-
-[project.optional-dependencies]
-dev = [
-    "numpy",
-    "pytest>=6",
-    "pytest-cov>=2.10.1",
-    "coveralls",
-    "pre-commit>=2.7",
-    "black==22.3.0",
-    "IPython>=8.0.0",
-    "sphinx",
-    "sphinx-rtd-theme",
-]
+version = "0.0.0"
 
 [build-system]
-requires = [
-    "setuptools>=50",
-    "wheel",
-    "toml",
-    "setuptools_scm[toml]>=6.0",
-    "setuptools_scm_git_archive",
-]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
 
-[tool.setuptools_scm]
-write_to = "plum/_version.py"
+[tool.poetry.dependencies]
+python = ">=3.7,<4.0"
 
-[tool.setuptools.packages.find]
-include = ["plum*"]  # package names should match these glob patterns (["*"] by default)
+[tool.poetry.group.dev.dependencies]
+pytest = ">=6"
+pytest-cov = ">=2.10.1"
+black = "==22.3.0"
+pre-commit = ">=2.7"
+coveralls = "*"
+IPython = ">=7.0.0"
+numpy = "~=1.19"
 
-
-
-
-
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
