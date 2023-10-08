@@ -73,9 +73,51 @@ class PromisedType(ResolvableType):
     def __init__(self, name="SomeType"):
         ResolvableType.__init__(self, f"PromisedType[{name}]")
         self._name = name
+        self._promised_values = []
 
     def __new__(cls, name="SomeType"):
         return ResolvableType.__new__(cls, f"PromisedType[{name}]")
+
+    def deliver(self, type):
+        super().deliver(type)
+        for val in self._promised_values:
+            val.deliver(type)
+        return self
+
+    def __call__(self, *args, **kw_args):
+        val = PromisedValue(self._type, *args, **kw_args)
+        self._promised_values.append(val)
+        return val
+
+
+from typing import Any
+
+
+class PromisedValue:
+    _type: Any
+    args: Any
+    kw_args: Any
+    __slots__ = ("_type", "args", "kw_args")
+
+    def __init__(self, typ, *args, **kw_args):
+        self._type = typ
+        self.args = args
+        self.kw_args = kw_args
+
+    def __repr__(self):
+        args = ", ".join([repr(a) for a in self.args])
+        kw_args = ", ".join(f"{k}={v}" for k, v in self.kw_args)
+        signature = "; ".join((args, kw_args))
+        return f"<PromisedValue {self._type}({signature})>"
+
+    def deliver(self, typ):
+        self._type = typ
+
+    def __call__(self):
+        if self._type is not None:
+            return self._type(*self.args, **self.kw_args)
+        else:
+            raise TypeError()
 
 
 class ModuleType(ResolvableType):
